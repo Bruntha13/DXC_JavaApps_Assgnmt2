@@ -16,72 +16,44 @@ public class Client {
 		List<Integer> arr= new ArrayList<Integer>();
 		
 		while(true) {
-			
-//			Options List
-	
-			System.out.println("Press 1. To Save an Employee to DB");
-			System.out.println("Press 2. To get the list of all Employees");
-			System.out.println("Press 3. To Update the Employee details");
-			System.out.println("Press 4. To Delete an Employee");
-			System.out.println("Press 5. To Exit");
-			
+			System.out.println("1 - Adding an Employee to DataBase");
+			System.out.println("2 - Fetching the list of Employees");
+			System.out.println("3 - Updating the Employee details");
+			System.out.println("4 - Deleting an Employee");
+			System.out.println("5 - Exit");	
 			System.out.println();
-			
-			System.out.print("Enter your choice: ");
+			System.out.print("Enter the operation you want to perform - ");
 			int choice = scanner.nextInt();
 			scanner.nextLine();
-			
 			System.out.println();
 			
-			switch(choice) {
-			
+			switch(choice) {			
 				case 1:
 				{	
-						System.out.println("Enter the employee details: ");
-						
-//						System.out.println();
-						
-						System.out.print("Enter the employeeName: ");
+						System.out.println("Enter employee details: ");								
+						System.out.print("Enter Employee Name: ");
 						String empName = scanner.nextLine();
-//						System.out.println();
-						
-						System.out.print("Enter the employeeAge: ");
+						System.out.print("Enter Employee Age: ");
 						int empAge = scanner.nextInt();
-//						System.out.println();
-						
-						
-						System.out.print("Enter the employeeSalary: ");
-						double empSalary = scanner.nextDouble();
-//						System.out.println();
-						
-						
+						System.out.print("Enter Employee Salary: ");
+						double empSalary = scanner.nextDouble();	
 						int empId = dao.saveEmployee(empName, empAge, empSalary);
-						
 						arr.add(empId);
-						
-//						for(Integer i : arr) {
-//							System.out.println(i + " ");
-//						}
-//						System.out.println(arr);
-						
 						System.out.println();
-						System.out.println("Employee saved successfully with id  " + empId);
+						System.out.println("Employee details successfully added to database with id  " + empId);
 						System.out.println();
 						break;
 				}		
 				case 2:
 				{		
 						
-						List<Employee> empList = dao.getAllEmployees();
-						
+						List<Employee> empList = dao.getAllEmployees();	
 						System.out.println();
-						System.out.println("Here is the list of all Employees : ");
+						System.out.println("Employees : ");
 						System.out.println();
-						
 						for(Employee emp: empList) {
 							System.out.println(emp);
 						}
-						
 						System.out.println();
 						System.out.println();
 						break;
@@ -89,36 +61,25 @@ public class Client {
 				}		
 				case 3:
 				{
-						System.out.println("Choose an Id from the list below:");
-						
-//						for(Integer id : arr) {
-//							System.out.print("[ ");
-//							System.out.print(id + " ");
-//							System.out.println("]");
-//							
-//						}
+						System.out.println("Enter the Id from the Employee list:");
 						System.out.println(arr);
-						
 						System.out.print("Enter the id :");
-						int empId = scanner.nextInt();
-						
-						System.out.print("What information do you want to update Age / Salary (1 / 2) ?: ");
+						int empId = scanner.nextInt();	
+						System.out.print("Choose the information you want to update Age / Salary (1 / 2) ?: ");
 						int ch = scanner.nextInt();
 						scanner.nextLine();
-						
+					
 						switch(ch) {
 						
 							case 1:
 							{
 								System.out.print("Enter the new age: ");
-								int age = scanner.nextInt();
-								
+								int age = scanner.nextInt();	
 								dao.updateEmployee(empId, age);
 								Employee emp = dao.getEmployee(empId);
-								
 								System.out.println();
 								System.out.println("Updated Successfully!");
-								System.out.println("Updated Employee Info: "+ emp);
+								System.out.println("Updated Employee details: "+ emp);
 								System.out.println();
 								break;
 							}
@@ -126,67 +87,47 @@ public class Client {
 							case 2:
 							{
 								System.out.print("Enter the new salary: ");
-								double salary = scanner.nextDouble();
-								
+								double salary = scanner.nextDouble();			
 								dao.updateEmployee(empId, salary);
-								Employee emp = dao.getEmployee(empId);
-								
+								Employee emp = dao.getEmployee(empId);	
 								System.out.println();
 								System.out.println("Updated Successfully!");
-								System.out.println("Updated Employee Info: "+ emp);
+								System.out.println("Updated Employee details: "+ emp);
 								System.out.println();
 								break;
 							}
 						}
-						
-						
 						break;
 				}		
 				case 4:
 				{
-						// Option to Delete
-						
-//						System.out.println("Choose the employeeId to delete:");
-						
-//						for(Integer id : arr) {
-//							System.out.println(id + " ");
-//						}
-					
 						System.out.println(arr);
-						
-						System.out.print("Choose the employeeId to delete: ");
+						System.out.print("Choose the employeeId you want to delete: ");
 						int empId = scanner.nextInt();
-						
 						Employee emp = dao.getEmployee(empId);
-						
 						System.out.println();
-						System.out.println("Here is the emp details : "+ emp);
+						System.out.println("The employee details you want to delete: "+ emp);
 						System.out.print("Do you want to delete ( Y / N) ? : ");
-						
 						scanner.nextLine();
-						
 						String input = scanner.nextLine();
-						
 						System.out.println(input);
-						
 						if(input.equalsIgnoreCase("Y") == true) {
 							dao.deleteEmployee(empId);
-							System.out.println("Object Deleted Successfully!");
+							System.out.println("Employee details deleted Successfully!");
 							System.out.println();
 						} else {
-							System.out.println("Operation Cancelled!");
+							System.out.println("Deletion aborted!");
 							System.out.println();
 						}
-						
 						break;
 				}		
 				case 5:	
 						scanner.close();
-						System.out.println("Program Exited!");
+						System.out.println("Bye!");
 						System.exit(0);
 						
 				default:
-						System.out.println("Wrong choice! Try Again");
+						System.out.println("Please enter a valid choice!");
 						System.out.println();
 						break;
 			}
